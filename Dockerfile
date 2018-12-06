@@ -5,6 +5,8 @@ RUN apt-get -y install wget p7zip-full
 # Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome.deb
 RUN dpkg -i chrome.deb || apt-get -yf install
+RUN echo -e '#!/bin/bash\nset -eu\n/usr/bin/google-chrome --no-sandbox "$@"' >/usr/bin/chrome-no-sandbox
+RUN chmod +x /usr/bin/chrome-no-sandbox
 
 # PowerShell Core
 RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.1.1/powershell_6.1.1-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
@@ -25,6 +27,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y yarn
 
 RUN npm install -g @angular/cli
 
+ENV CHROME_BIN=/usr/bin/chrome-no-sandbox
 WORKDIR /run
 COPY angularbench.ps1 .
 CMD pwsh -File angularbench.ps1
