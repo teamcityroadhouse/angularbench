@@ -9,15 +9,15 @@ RUN echo -e '#!/bin/bash\nset -eu\n/usr/bin/google-chrome --no-sandbox "$@"' >/u
 RUN chmod +x /usr/bin/chrome-no-sandbox
 
 # PowerShell Core
-RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.1.1/powershell_6.1.1-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
+RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.2.2/powershell_6.2.2-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
 RUN dpkg -i /opt/powershell.deb || apt-get -yf install
 
 # NodeJS
 WORKDIR /nodejs
-RUN wget https://nodejs.org/dist/v11.3.0/node-v11.3.0-linux-x64.tar.xz
+RUN wget https://nodejs.org/dist/v12.8.0/node-v12.8.0-linux-x64.tar.xz
 RUN 7z x *.xz
 RUN tar -xf *.tar
-ENV PATH="${PATH}:/nodejs/node-v11.3.0-linux-x64/bin"
+ENV PATH="${PATH}:/nodejs/node-v12.8.0-linux-x64/bin"
 
 # Yarn
 RUN apt-get install -y curl gnupg
