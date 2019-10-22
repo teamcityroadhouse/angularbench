@@ -9,7 +9,7 @@ RUN echo -e '#!/bin/bash\nset -eu\n/usr/bin/google-chrome --no-sandbox "$@"' >/u
 RUN chmod +x /usr/bin/chrome-no-sandbox
 
 # PowerShell Core
-RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.2.2/powershell_6.2.2-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
+RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.2.3/powershell_6.2.3-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
 RUN dpkg -i /opt/powershell.deb || apt-get -yf install
 
 # NodeJS
