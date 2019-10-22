@@ -10,6 +10,7 @@ New-Item -ItemType Directory ("/tmp/_benchmark/"+$i) | Out-Null
 cd ("/tmp/_benchmark/"+$i)
 (ng --version|select-string -Context 2 -Pattern "Angular CLI: ").ToString().Trim();if($LastExitCode -ne 0){throw}
 Write-Host("Yarn: "+(yarn --version)) ;if($LastExitCode -ne 0){throw}
+Write-Host("Ran: "+(Get-Date).ToString("yyyy-MM-dd"))
 $stopwatch = New-Object -TypeName System.Diagnostics.Stopwatch
 
 
