@@ -14,10 +14,10 @@ RUN dpkg -i /opt/powershell.deb || apt-get -yf install
 
 # NodeJS
 WORKDIR /nodejs
-RUN wget https://nodejs.org/dist/v12.8.0/node-v12.8.0-linux-x64.tar.xz
+RUN wget https://nodejs.org/download/release/latest-v12.x/node-v12.13.0-linux-x64.tar.xz
 RUN 7z x *.xz
 RUN tar -xf *.tar
-ENV PATH="${PATH}:/nodejs/node-v12.8.0-linux-x64/bin"
+ENV PATH="${PATH}:/nodejs/node-v12.13.0-linux-x64/bin"
 
 # Yarn
 RUN apt-get install -y curl gnupg
