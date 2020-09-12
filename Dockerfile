@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get -y install wget p7zip-full
 
@@ -9,15 +10,15 @@ RUN echo -e '#!/bin/bash\nset -eu\n/usr/bin/google-chrome --no-sandbox "$@"' >/u
 RUN chmod +x /usr/bin/chrome-no-sandbox
 
 # PowerShell Core
-RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.2.3/powershell_6.2.3-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
+RUN wget -q https://github.com/PowerShell/PowerShell/releases/download/v6.2.6/powershell_6.2.6-1.ubuntu.18.04_amd64.deb -O /opt/powershell.deb
 RUN dpkg -i /opt/powershell.deb || apt-get -yf install
 
 # NodeJS
 WORKDIR /nodejs
-RUN wget https://nodejs.org/download/release/latest-v12.x/node-v12.13.0-linux-x64.tar.xz
+RUN wget https://nodejs.org/download/release/latest-v14.x/node-v14.10.1-linux-x64.tar.xz
 RUN 7z x *.xz
 RUN tar -xf *.tar
-ENV PATH="${PATH}:/nodejs/node-v12.13.0-linux-x64/bin"
+ENV PATH="${PATH}:/nodejs/node-v14.10.1-linux-x64/bin"
 
 # Yarn
 RUN apt-get install -y curl gnupg
