@@ -1,5 +1,7 @@
 # choco install -y nodejs
 # npm install -g @angular/cli
+$ng = 'ng'
+if($env:OS -eq "Windows_NT"){$ng = "ng.cmd"}
 $ErrorActionPreference = "Stop"
 if (Test-Path /tmp/_benchmark){
     cd /
@@ -15,7 +17,7 @@ $stopwatch = New-Object -TypeName System.Diagnostics.Stopwatch
 
 
 $stopwatch.Restart()
-if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull ng "new benchmarkapp --routing --style=css --skipGit --skipInstall").ExitCode -ne 0){throw}
+if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull $ng "new benchmarkapp --routing --style=css --skipGit --skipInstall").ExitCode -ne 0){throw}
 $stopwatch.Stop()
 Write-Host("ng new:        "+($stopwatch.ElapsedMilliseconds/1000).ToString("#.#")+" sec")
 
@@ -30,25 +32,25 @@ Write-Host("yarn install:  "+($stopwatch.ElapsedMilliseconds/1000).ToString("#.#
 
 
 $stopwatch.Restart()
-if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull ng "test --watch=false --no-progress --browsers=ChromeHeadless").ExitCode -ne 0){throw}
+if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull $ng "test --watch=false --no-progress --browsers=ChromeHeadless").ExitCode -ne 0){throw}
 $stopwatch.Stop()
 Write-Host("ng test:       "+($stopwatch.ElapsedMilliseconds/1000).ToString("#.#")+" sec")
 
 
 $stopwatch.Restart()
-if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull ng "build").ExitCode -ne 0){throw}
+if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull $ng "build").ExitCode -ne 0){throw}
 $stopwatch.Stop()
 Write-Host("ng build:      "+($stopwatch.ElapsedMilliseconds/1000).ToString("#.#")+" sec")
 
 
 $stopwatch.Restart()
-if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull ng "build --prod").ExitCode -ne 0){throw}
+if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull $ng "build --prod").ExitCode -ne 0){throw}
 $stopwatch.Stop()
 Write-Host("ng build prod: "+($stopwatch.ElapsedMilliseconds/1000).ToString("#.#")+" sec")
 
 
 $stopwatch.Restart()
-if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull ng "build --prod --aot").ExitCode -ne 0){throw}
+if((Start-Process -Wait -PassThru -RedirectStandardOutput /tmp/outnull $ng "build --prod --aot").ExitCode -ne 0){throw}
 $stopwatch.Stop()
 Write-Host("ng build aot:  "+($stopwatch.ElapsedMilliseconds/1000).ToString("#.#")+" sec")
 
